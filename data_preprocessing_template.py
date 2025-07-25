@@ -9,7 +9,7 @@ from sklearn.compose import ColumnTransformer
 from sklearn.model_selection import train_test_split
 
 # Importing the dataset
-dataset = pd.read_csv('Data.csv')
+dataset = pd.read_csv('Salary_Data.csv')
 X = dataset.iloc[:, :-1].values  # Features matrix
 y = dataset.iloc[:, -1].values   # Target vector
 
@@ -20,11 +20,11 @@ print("\nDataset Description:")
 print(dataset.describe())
 print("\nDataset Info:")
 dataset.info()
-
+"""
 # Taking care of missing data
 imputer = SimpleImputer(missing_values=np.nan, strategy='mean')
 X[:, 1:3] = imputer.fit_transform(X[:, 1:3])
-
+"""
 # Encoding categorical data
 labelencoder_X = LabelEncoder()
 X[:, 0] = labelencoder_X.fit_transform(X[:, 0])
@@ -62,3 +62,13 @@ if not isinstance(y[0], str):
     y_train = sc_y.fit_transform(y_train).flatten()
     y_test = y_test.reshape(-1, 1)
     y_test = sc_y.transform(y_test).flatten()
+
+# Final output of preprocessed data
+print("\nPreprocessed Training Features:")
+print(X_train[:5])  # Display first 5 rows of training features
+print("\nPreprocessed Test Features:")
+print(X_test[:5])  # Display first 5 rows of test features
+print("\nPreprocessed Training Target:")
+print(y_train[:5])  # Display first 5 rows of training target
+print("\nPreprocessed Test Target:")
+print(y_test[:5])  # Display first 5 rows of test target
